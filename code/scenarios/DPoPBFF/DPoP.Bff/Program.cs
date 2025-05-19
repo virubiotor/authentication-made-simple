@@ -2,6 +2,7 @@
 // See LICENSE in the project root for license information.
 
 using Duende.Bff.Yarp;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Events;
@@ -21,10 +22,9 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.AddServiceDefaults();
 var yarpBuilder = builder.Services.AddReverseProxy()
                 .AddBffExtensions();
-//Configure yarp's routes and clusters in extension method
 yarpBuilder.Configure();
 
 builder.Services.AddSerilog();
@@ -66,7 +66,7 @@ builder.Services.AddAuthentication(options =>
     })
     .AddOpenIdConnect("oidc", options =>
     {
-        options.Authority = "https://localhost:5001";
+        options.Authority = builder.Configuration.GetValue<string>("authority");
 
         // confidential client using code flow + PKCE
         options.ClientId = "authCodeDPop";
@@ -85,12 +85,13 @@ builder.Services.AddAuthentication(options =>
         options.Scope.Add("profile");
         options.Scope.Add("authcode-dpop");
         options.Scope.Add("offline_access");
+        options.Scope.Add("email");
     });
 
 builder.Services.AddUserAccessTokenHttpClient("api",
     configureClient: client =>
     {
-        client.BaseAddress = new Uri("https://localhost:6001/api");
+        client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("apiUrl")!);
     });
 
 var app = builder.Build();
@@ -122,7 +123,7 @@ app.MapReverseProxy(proxyApp =>
 {
     proxyApp.UseAntiforgeryCheck();
 });
-// proxy endpoints in extension method using BFF's simplified wrapper
+
 app.MapRemoteUrls();
 
 app.Run();

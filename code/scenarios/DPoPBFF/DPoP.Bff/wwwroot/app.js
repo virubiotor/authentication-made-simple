@@ -104,20 +104,8 @@ async function callUserTokenApi() {
     await callRemoteApi("/user-token");
 }
 
-async function callClientTokenApi() {
-    await callRemoteApi("/client-token");
-}
-
-async function callUserOrClientTokenApi() {
-    await callRemoteApi("/user-or-client-token");
-}
-
 async function callAnonymousApi() {
     await callRemoteApi("/anonymous");
-}
-
-async function callOptionalUserTokenApi() {
-    await callRemoteApi("/optional-user-token");
 }
 
 async function callYarpAnonymousApi() {
@@ -126,14 +114,6 @@ async function callYarpAnonymousApi() {
 
 async function callYarpUserTokenApi() {
     await callYarpApi("/user-token");
-}
-
-async function callYarpClientTokenApi() {
-    await callYarpApi("/client-token");
-}
-
-async function callYarpUserOrClientTokenApi() {
-    await callYarpApi("/user-or-client-token");
 }
 
 
@@ -148,15 +128,10 @@ document.querySelector(".call_local_external").addEventListener("click", callLoc
 // Remote APIs
 document.querySelector(".call_anonymous").addEventListener("click", callAnonymousApi, false);
 document.querySelector(".call_user").addEventListener("click", callUserTokenApi, false);
-document.querySelector(".call_optional_user").addEventListener("click", callOptionalUserTokenApi, false);
-document.querySelector(".call_client").addEventListener("click", callClientTokenApi, false);
-document.querySelector(".call_user_or_client").addEventListener("click", callUserOrClientTokenApi, false);
 
 // Yarp APIs
 document.querySelector(".call_yarp_anonymous").addEventListener("click", callYarpAnonymousApi, false);
 document.querySelector(".call_yarp_user").addEventListener("click", callYarpUserTokenApi, false);
-document.querySelector(".call_yarp_client").addEventListener("click", callYarpClientTokenApi, false);
-document.querySelector(".call_yarp_user_or_client").addEventListener("click", callYarpUserOrClientTokenApi, false);
 
 function showApi() {
     document.getElementById('api-result').innerText = '';

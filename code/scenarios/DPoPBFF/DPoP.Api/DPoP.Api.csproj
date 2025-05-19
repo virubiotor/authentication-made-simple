@@ -10,4 +10,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
         <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\AspireApp\AspireApp.ServiceDefaults\AspireApp.ServiceDefaults.csproj" />
+    </ItemGroup>
 </Project>

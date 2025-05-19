@@ -2,16 +2,18 @@ using Duende.IdentityServer.Models;
 using IdentityServer.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+        builder.Configuration.GetConnectionString("Idsrdb")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
+builder.AddServiceDefaults();
 
 builder.Services.AddIdentityServer()
     .AddInMemoryClients([
@@ -38,7 +40,7 @@ builder.Services.AddIdentityServer()
             ClientId = "authCodeDPop",
             AllowedGrantTypes = GrantTypes.Code,
             RedirectUris = ["https://localhost:5002/signin-oidc"],
-            AllowedScopes = { "openid", "profile", "authcode-dpop", "offline_access" },
+            AllowedScopes = { "openid", "profile", "email", "authcode-dpop", "offline_access" },
             AllowOfflineAccess = true,
             RequirePkce = true,
             ClientSecrets = [new Secret("dpopsecret".Sha256())],
@@ -90,7 +92,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    app.UseMigrationsEndPoint();
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        db.Database.Migrate();
+    }
 }
 else
 {

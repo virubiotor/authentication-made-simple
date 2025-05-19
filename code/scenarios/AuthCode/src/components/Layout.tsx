@@ -65,13 +65,6 @@ export const Layout: React.FC<LayoutProps> = (props) => {
       }
     },
     {
-      text: 'Playground',
-      protected: true,
-      action: () => {
-        navigate(appRoutes.playground);
-      }
-    },
-    {
       text: 'Logout',
       protected: false,
       action: () => {

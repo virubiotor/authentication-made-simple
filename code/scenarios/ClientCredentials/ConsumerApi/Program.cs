@@ -2,19 +2,24 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.AddServiceDefaults();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthentication()
     .AddJwtBearer(jwtOptions =>
     {
-        jwtOptions.Authority = "https://localhost:5001";
+        var authority = builder.Configuration.GetValue<string>("authority");
+        jwtOptions.Authority = builder.Configuration.GetValue<string>("authority");
         jwtOptions.Audience = "app-client-credentials";
+
         jwtOptions.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
-            ValidateIssuerSigningKey = true
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = authority,
         };
+
+        jwtOptions.SaveToken = true;
     });
 
 builder.Services.AddAuthorization();

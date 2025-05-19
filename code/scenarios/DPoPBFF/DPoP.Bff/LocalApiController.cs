@@ -33,7 +33,7 @@ public class LocalApiController : ControllerBase
     public async Task<IActionResult> InvokesExternalApisAsync()
     {
         var httpClient = _httpClientFactory.CreateClient("api");
-        var apiResult = await httpClient.GetAsync("/user-token");
+        var apiResult = await httpClient.GetAsync("user-token");
         var content = await apiResult.Content.ReadAsStringAsync();
         var deserialized = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(content);
 

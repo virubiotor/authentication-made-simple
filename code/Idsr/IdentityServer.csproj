@@ -22,4 +22,8 @@
     <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AspireApp\AspireApp.ServiceDefaults\AspireApp.ServiceDefaults.csproj" />
+  </ItemGroup>
+
 </Project>

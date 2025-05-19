@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>6f3ce424-8640-4e3d-b4e6-c8575d52a6ce</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.2.1" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="9.2.1" />
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.NodeJS.Extensions" Version="9.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Idsr\IdentityServer.csproj" />
+    <ProjectReference Include="..\..\scenarios\ClientCredentials\ClientApi\ClientApi.csproj" />
+    <ProjectReference Include="..\..\scenarios\ClientCredentials\ConsumerApi\ConsumerApi.csproj" />
+    <ProjectReference Include="..\..\scenarios\DPoPBFF\DPoP.Api\DPoP.Api.csproj" />
+    <ProjectReference Include="..\..\scenarios\DPoPBFF\DPoP.Bff\DPoP.Bff.csproj" />
+  </ItemGroup>
+
+    <Target Name="RestoreNpm" BeforeTargets="Build" Condition=" '$(DesignTimeBuild)' != 'true' ">
+	    <!-- Install npm packages if node_modules is missing -->
+	    <Message Importance="Normal" Text="Installing npm packages for AuthCode app" Condition="!Exists('..\..\scenarios\AuthCode\node_modules')" />
+		<Exec Command="npm install" WorkingDirectory="..\..\scenarios\AuthCode" Condition="!Exists('..\..\scenarios\AuthCode\node_modules')" />
+    </Target>
+
+</Project>

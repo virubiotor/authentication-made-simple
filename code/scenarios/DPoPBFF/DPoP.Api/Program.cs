@@ -2,6 +2,7 @@
 // See LICENSE in the project root for license information.
 
 using DPoP.Api;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Events;
@@ -24,17 +25,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSerilog();
 builder.Services.AddControllers();
-
+builder.AddServiceDefaults();
 builder.Services.AddAuthentication("token")
     .AddJwtBearer("token", options =>
     {
-        options.Authority = "https://demo.duendesoftware.com";
-        options.MapInboundClaims = false;
+        options.Authority = builder.Configuration.GetValue<string>("authority");
+        options.MapInboundClaims = true;
 
         options.TokenValidationParameters = new TokenValidationParameters()
         {
             ValidateAudience = false,
-            ValidTypes = new[] { "at+jwt" },
+            ValidTypes = ["at+jwt"],
 
             NameClaimType = "name",
             RoleClaimType = "role"
@@ -48,7 +49,7 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("ApiCaller", policy =>
     {
-        policy.RequireClaim("scope", "api");
+        policy.RequireClaim("scope", "authcode-dpop");
     });
 
     options.AddPolicy("RequireInteractiveUser", policy =>
