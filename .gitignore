@@ -341,3 +341,6 @@ src/PlainConcepts.Orein.Host/wwwroot/css/
 
 # Visual Studio code
 .vscode
+
+# macOS related files
+.DS_Store

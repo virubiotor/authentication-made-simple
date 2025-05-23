@@ -34,7 +34,18 @@ builder.AddProject<Projects.DPoP_Bff>("DPopBff")
        .WaitFor(dpopApi)
        .WithExternalHttpEndpoints();
 
-builder.AddNpmApp("AuthCode", "../../scenarios/AuthCode", "dev")
+var bffApi = builder.AddProject<Projects.BFF_Api>("BFFApi")
+       .WaitFor(idsr)
+       .WithReference(idsr)
+       .WithExternalHttpEndpoints();
+
+builder.AddProject<Projects.BFF>("BFF")
+       .WithReference(idsr)
+       .WithReference(bffApi)
+       .WaitFor(bffApi)
+       .WithExternalHttpEndpoints();
+
+builder.AddNpmApp("AuthCode", "../../Scenarios/AuthCode", "dev")
     .WithReference(idsr)
     .WaitFor(idsr)
     .WithEnvironment("BROWSER", "none")

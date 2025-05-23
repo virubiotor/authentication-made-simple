@@ -44,6 +44,16 @@ builder.Services.AddIdentityServer()
             AllowOfflineAccess = true,
             RequirePkce = true,
             ClientSecrets = [new Secret("dpopsecret".Sha256())],
+        },
+        new Client
+        {
+            ClientId = "authCodeBFF",
+            AllowedGrantTypes = GrantTypes.Code,
+            RedirectUris = ["https://localhost:5010/signin-oidc"],
+            AllowedScopes = { "openid", "profile", "email", "authcode-bff", "offline_access" },
+            AllowOfflineAccess = true,
+            RequirePkce = true,
+            ClientSecrets = [new Secret("BFFSecret".Sha256())],
         }
     ])
     .AddInMemoryIdentityResources([
@@ -64,12 +74,17 @@ builder.Services.AddIdentityServer()
         new ApiResource{
             Name="authcode-dpop",
             Scopes = ["authcode-dpop"]
+        },
+        new ApiResource{
+            Name="authcode-bff",
+            Scopes = ["authcode-bff"]
         }
         ])
     .AddInMemoryApiScopes([
         new ApiScope("app-code"),
         new ApiScope("app-client-credentials"),
-        new ApiScope("authcode-dpop")
+        new ApiScope("authcode-dpop"),
+        new ApiScope("authcode-bff")
         ])
     .AddAspNetIdentity<IdentityUser>();
 

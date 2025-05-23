@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Idsr\IdentityServer.csproj" />
+    <ProjectReference Include="..\..\scenarios\BFF\BFF.Api\BFF.Api.csproj" />
+    <ProjectReference Include="..\..\scenarios\BFF\BFF\BFF.csproj" />
     <ProjectReference Include="..\..\scenarios\ClientCredentials\ClientApi\ClientApi.csproj" />
     <ProjectReference Include="..\..\scenarios\ClientCredentials\ConsumerApi\ConsumerApi.csproj" />
     <ProjectReference Include="..\..\scenarios\DPoPBFF\DPoP.Api\DPoP.Api.csproj" />
