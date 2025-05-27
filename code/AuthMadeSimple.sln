@@ -17,9 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPoP.Api", "scenarios\DPoPB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPoP.Bff", "scenarios\DPoPBFF\DPoP.Bff\DPoP.Bff.csproj", "{01B403BD-CB6D-3CE9-3F59-B9165586D94D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireApp.AppHost", "AspireApp\AspireApp.AppHost\AspireApp.AppHost.csproj", "{536EE073-B9DB-4E03-A49E-D9252BC2C5DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationMadeSimple.AppHost", "AspireApp\AuthenticationMadeSimple.AppHost\AuthenticationMadeSimple.AppHost.csproj", "{536EE073-B9DB-4E03-A49E-D9252BC2C5DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireApp.ServiceDefaults", "AspireApp\AspireApp.ServiceDefaults\AspireApp.ServiceDefaults.csproj", "{CEF74E1D-AEBF-CDE1-7C5A-CCC40CBE62E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationMadeSimple.ServiceDefaults", "AspireApp\AuthenticationMadeSimple.ServiceDefaults\AuthenticationMadeSimple.ServiceDefaults.csproj", "{CEF74E1D-AEBF-CDE1-7C5A-CCC40CBE62E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApi", "scenarios\ClientCredentials\ClientApi\ClientApi.csproj", "{AB69413C-FFBA-D016-FA06-FBB63BF8B7B9}"
 EndProject

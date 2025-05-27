@@ -34,3 +34,7 @@ TBD
   - small tokens
   - claims contains no personal data
   
+
+- Default user for testing:
+  - Username: `dotnet@example.org`
+  - Password: `Test1!`

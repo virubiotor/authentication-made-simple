@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\AspireApp\AspireApp.ServiceDefaults\AspireApp.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\..\AspireApp\AuthenticationMadeSimple.ServiceDefaults\AuthenticationMadeSimple.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
