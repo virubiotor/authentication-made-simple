@@ -332,8 +332,6 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
-# Host styles
-src/PlainConcepts.Orein.Host/wwwroot/css/
 
 # Terraform local files
 .terraform
@@ -344,3 +342,16 @@ src/PlainConcepts.Orein.Host/wwwroot/css/
 
 # macOS related files
 .DS_Store
+
+# Assets
+*.pptx
+*.xlsx
+*.docx
+
+# Sensitive files
+**/keys/**
+.env
+.env.local
+*.pfx
+*.p12
+*.key
