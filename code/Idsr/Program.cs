@@ -1,4 +1,5 @@
 using Duende.IdentityServer.Models;
+using IdentityServer;
 using IdentityServer.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -103,6 +104,11 @@ builder.Services.AddLogging(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    await SeedData.EnsureSeedData(scope.ServiceProvider);
+}
 
 if (app.Environment.IsDevelopment())
 {
