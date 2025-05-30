@@ -46,6 +46,7 @@ app.MapGet("/weatherforecast", async ([FromServices] IHttpClientFactory httpClie
     };
 
 
+    app.Logger.LogInformation("Requesting token: POST https://localhost:5001/connect/token. Parameters: {RequestParameters}", parameters);
     using var request = new HttpRequestMessage(HttpMethod.Post, new Uri("connect/token",UriKind.Relative));
     request.Headers.Add("Accept", "application/json");
     request.Content = new FormUrlEncodedContent(parameters);
@@ -53,15 +54,22 @@ app.MapGet("/weatherforecast", async ([FromServices] IHttpClientFactory httpClie
 
     string responseContent = await tokenResponse.Content.ReadAsStringAsync();
 
-    app.Logger.LogInformation("Token response: {responseContent}", responseContent);
+    app.Logger.LogInformation("Response received!. Token response: {responseContent}", responseContent);
 
     using JsonDocument doc = JsonDocument.Parse(responseContent);
     string accessToken = doc.RootElement.GetProperty("access_token").GetString()!;
+    
+    app.Logger.LogInformation("Access token: {accessToken}", accessToken);
+    var accessTokenUrl = $"https://jwt.ms/#access_token={accessToken}";
+    app.Logger.LogInformation("View the decoded access_token! {accessTokenUrl}", accessTokenUrl);
 
+    app.Logger.LogInformation("Requesting data from API with token: GET /weatherforecast");
     var client = httpClientFactory.CreateClient("consumer-api");
     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
     var response = await client.GetAsync("weatherforecast");
-    return await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
+    var jsonResponse = await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
+    app.Logger.LogInformation("Response received from API!");
+    return jsonResponse;
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();

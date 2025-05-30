@@ -105,11 +105,6 @@ builder.Services.AddLogging(options =>
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    await SeedData.EnsureSeedData(scope.ServiceProvider);
-}
-
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -117,6 +112,7 @@ if (app.Environment.IsDevelopment())
     {
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         db.Database.Migrate();
+        await SeedData.EnsureSeedData(scope.ServiceProvider);
     }
 }
 else
