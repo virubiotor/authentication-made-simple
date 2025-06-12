@@ -4,10 +4,10 @@ sequenceDiagram
     participant IdentityServer
     participant Api
 
-    App->>IdentityServer: Call /token w/ client secret
-    loop Validate secret
-        IdentityServer->>IdentityServer: Validate secret
+    App->>IdentityServer: Llamada /token con client secret
+    loop Validación secreto
+        IdentityServer->>IdentityServer: Validación secreto
     end
-    IdentityServer-->>App: Return token
-    App->>Api: Call w/ Access Token
+    IdentityServer-->>App: Devuelve token
+    App->>Api: Llamada con Access Token
 ```

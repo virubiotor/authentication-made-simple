@@ -5,21 +5,21 @@ sequenceDiagram
     participant IdentityServer
     participant Api
 
-    User->>App: Click on Login
-    loop Generate code verifier & challenge
-        App->>App: Generate code verifier & challenge
+    User->>App: Click en Login
+    loop Generar code verifier & challenge
+        App->>App: Generar code verifier & challenge
     end
-    App->>IdentityServer: Call /authorize w/ challenge
-    IdentityServer-->>User: Redirect to auth page
-    User->>IdentityServer: Authenticate (login)
-    IdentityServer-->>App: Redirect w/ auth code
-    loop Validate code
-        App->>App: Validate code
+    App->>IdentityServer: Llamada a /authorize con challenge
+    IdentityServer-->>User: Redirección a página de login
+    User->>IdentityServer: Authenticación (login)
+    IdentityServer-->>App: Redirección con auth code
+    loop Validar code
+        App->>App: Validar code
     end
-    App->>IdentityServer: Call /token w/ code verifier
-    loop Validate verifier & challenge
-        IdentityServer->>IdentityServer: Validate verifier & challenge
+    App->>IdentityServer: Llamada a /token con code verifier
+    loop Validar verifier & challenge
+        IdentityServer->>IdentityServer: Validar verifier & challenge
     end
-    IdentityServer-->>App: Return token
-    App->>Api: Call API w/ token
+    IdentityServer-->>App: Devolver token
+    App->>Api: Llamada a API con token
 ```
