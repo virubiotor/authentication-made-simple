@@ -11,7 +11,7 @@ sequenceDiagram
     end
     App->>IdentityServer: Llamada a /authorize con challenge
     IdentityServer-->>User: Redirección a página de login
-    User->>IdentityServer: Authenticación (login)
+    User->>IdentityServer: Autenticación (login)
     IdentityServer-->>App: Redirección con auth code
     loop Validar code
         App->>App: Validar code

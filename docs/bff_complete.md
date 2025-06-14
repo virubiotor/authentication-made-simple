@@ -10,7 +10,7 @@ sequenceDiagram
     App->>BFF: Llamada a /login
     BFF->>IdentityServer: Llamada a /authorize con challenge + secret
     IdentityServer-->>User: Redirección a autenticación
-    User->>IdentityServer: Authenticación (login)
+    User->>IdentityServer: Autenticación (login)
     IdentityServer-->>BFF: Redirección con auth code
     loop Validación code
         BFF->>BFF: Validación code

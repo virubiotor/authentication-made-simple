@@ -11,7 +11,7 @@ sequenceDiagram
     BFF->>IdentityServer: Comienza flujo Authorization Code + PKCE
     IdentityServer-->>User: Redirección a autenticación (login)
     User->>IdentityServer: Autenticación (login)
-    IdentityServer-->>BFF: Redirección a BFF para renaudar flujo
+    IdentityServer-->>BFF: Redirección a BFF para continuar flujo
     IdentityServer<<->>BFF: Continuar con flujo
     IdentityServer-->>BFF: Devuelve token
     loop Expide Cookie
