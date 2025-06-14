@@ -1,7 +1,10 @@
+using System.Security.Cryptography.X509Certificates;
+using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 using IdentityServer;
 using IdentityServer.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,9 +21,25 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddRazorPages();
+builder.Services.AddAuthentication()
+    .AddCertificate(op =>
+    {
+        // Revocation check disabled for mkcert certificate. 
+        // In production, revocation should be checked.
+
+        op.RevocationMode = X509RevocationMode.NoCheck;
+    }
+);
 builder.AddServiceDefaults();
 
-builder.Services.AddIdentityServer()
+// Warning: This is not recommended for production use! Only for demo purposes!
+X509Certificate2 ClientCert() => new("../../localhost-client.p12", "changeit");
+string ClientCertificateThumbprint() => ClientCert().Thumbprint;
+string ClientCertificateSubject() => ClientCert().Subject;
+builder.Services.AddIdentityServer(op =>
+    {
+        op.MutualTls.Enabled = true;
+    })
     .AddInMemoryClients([
         new Client
         {
@@ -59,6 +78,26 @@ builder.Services.AddIdentityServer()
             AllowOfflineAccess = true,
             RequirePkce = true,
             ClientSecrets = [new Secret("BFFSecret".Sha256())],
+        },
+        new Client
+        {
+            ClientId = "mtls",
+            AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
+            RedirectUris = ["https://localhost:5011/signin-oidc"],
+            AllowedScopes = { "openid", "profile", "scope1" },
+            AllowOfflineAccess = true,
+            ClientSecrets =
+            {
+                //(Either secret type can be used)
+                new Secret(ClientCertificateThumbprint())
+                {
+                    Type = IdentityServerConstants.SecretTypes.X509CertificateThumbprint
+                },
+                // new Secret(ClientCertificateSubject())
+                // {
+                //     Type = IdentityServerConstants.SecretTypes.X509CertificateName
+                // }
+            }
         }
     ])
     .AddInMemoryIdentityResources([
@@ -83,15 +122,22 @@ builder.Services.AddIdentityServer()
         new ApiResource{
             Name="authcode-bff",
             Scopes = ["authcode-bff"]
+        },
+        new ApiResource("scope1")
+        {
+            Scopes = { "scope1" },
+            UserClaims = { "scope1" }
         }
         ])
     .AddInMemoryApiScopes([
         new ApiScope("app-code"),
         new ApiScope("app-client-credentials"),
         new ApiScope("authcode-dpop"),
-        new ApiScope("authcode-bff")
+        new ApiScope("authcode-bff"),
+        new ApiScope("scope1")
         ])
-    .AddAspNetIdentity<IdentityUser>();
+    .AddAspNetIdentity<IdentityUser>()
+    .AddMutualTlsSecretValidators();
 
 builder.Services.AddCors(options =>
 {
@@ -105,6 +151,15 @@ builder.Services.AddCors(options =>
 builder.Services.AddLogging(options =>
 {
     options.AddFilter("Duende", LogLevel.Debug);
+});
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ConfigureHttpsDefaults(https =>
+    {
+        https.ClientCertificateMode = ClientCertificateMode.AllowCertificate;
+        https.AllowAnyClientCertificate();   // Demo purposes only!! trusts every client cert
+    });
 });
 
 var app = builder.Build();

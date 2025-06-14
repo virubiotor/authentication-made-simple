@@ -10,6 +10,7 @@ The `scenarios` folder contains a range of authentication scenarios based on the
 - **Machine-to-Machine Authentication:** Using the Client Credentials flow.
 - **Interactive Authentication:** Leveraging the Authorization Code flow with PKCE.
 - **Backend-for-Frontend (BFF) pattern:** Implemented via the Authorization Code flow with PKCE.
+- **PoP with mTLS Authentication:** Proof of Possession (PoP) using mutual TLS (mTLS).
 - **DPoP Authentication:** Combining DPoP, BFF, and the Authorization Code flow.
 
 ## Demo
@@ -24,6 +25,20 @@ To run the demo, follow these steps:
 **Note:** a default user for testing purposes is provided in the Identity Server configuration. You can use the following credentials to log in:
   - Username: `dotnet@example.org`
   - Password: `Test1!`
+
+**Note:** the demo for PoP with mTLS Authentication requires a valid certificate. You can generate a self-signed certificate using the `mkcert` tool or any other method you prefer. With `mkcert`, you can run the following command to create and provide a certificate:
+```bash
+# First ensure mkcert is installed and configured
+# Refer to https://github.com/FiloSottile/mkcert and follow the installation instructions for your platform.
+mkcert -install
+
+# Generate a self-signed certificate for localhost
+mkcert -client -pkcs12 localhost
+# This will create a file named localhost-client.p12 in the current directory.
+# Assuming we are in the root of the repository, you can move it to the code/scenarios/PoPmTLS folder:
+mv localhost-client.p12 code/scenarios/PoPmTLS/
+# Certificates last for 2 years and 3 months by default...
+```
 
 ## Additional Resources
 While these samples provide a straightforward introduction to authentication, a deeper understanding of the underlying principles and technologies is essential for production use. Key areas to explore further include:

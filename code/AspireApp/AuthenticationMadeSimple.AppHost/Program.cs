@@ -45,6 +45,17 @@ builder.AddProject<Projects.BFF>("BFF")
        .WaitFor(bffApi)
        .WithExternalHttpEndpoints();
 
+var poPmTlsApi = builder.AddProject<Projects.PoPmTLS_Api>("PoPmTLS-Api")
+       .WithReference(idsr)
+       .WaitFor(idsr)
+       .WithExternalHttpEndpoints();
+
+builder.AddProject<Projects.PoPmTLS_Client>("PoPmTLS-client")
+       .WithReference(idsr)
+       .WithReference(poPmTlsApi)
+       .WaitFor(poPmTlsApi)
+       .WithExternalHttpEndpoints();
+
 builder.AddNpmApp("AuthenticationCode-Client", "../../Scenarios/AuthCode", "dev")
     .WithReference(idsr)
     .WaitFor(idsr)

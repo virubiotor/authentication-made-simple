@@ -24,6 +24,8 @@
     <ProjectReference Include="..\..\scenarios\ClientCredentials\ConsumerApi\ConsumerApi.csproj" />
     <ProjectReference Include="..\..\scenarios\DPoPBFF\DPoP.Api\DPoP.Api.csproj" />
     <ProjectReference Include="..\..\scenarios\DPoPBFF\DPoP.Bff\DPoP.Bff.csproj" />
+    <ProjectReference Include="..\..\scenarios\PoPmTLS\PoPmTLS.Api\PoPmTLS.Api.csproj" />
+    <ProjectReference Include="..\..\scenarios\PoPmTLS\PoPmTLS.Client\PoPmTLS.Client.csproj" />
   </ItemGroup>
 
     <Target Name="RestoreNpm" BeforeTargets="Build" Condition=" '$(DesignTimeBuild)' != 'true' ">
