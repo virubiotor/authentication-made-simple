@@ -12,15 +12,16 @@ public static class SeedData
         using var scope = serviceProvider.CreateScope();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-        var user = await userManager.FindByNameAsync("DotnetAdmin");
+        var user = await userManager.FindByNameAsync("dotnet@example.org");
         if (user == null)
         {
-            user = new IdentityUser("DotnetAdmin")
+            user = new IdentityUser("dotnet@example.org")
             {
                 Email = "dotnet@example.org",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                LockoutEnabled = false
             };
-            
+
             // WARNING: Never do this!! Only for demo purposes!
             var result = await userManager.CreateAsync(user, "Test1!");
 
