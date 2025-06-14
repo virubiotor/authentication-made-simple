@@ -1,4 +1,7 @@
 # Authentication made simple
+
+[View this repo in DeepWiki](https://deepwiki.com/virubiotor/authentication-made-simple)
+
 Authentication is one of the foundational pillars of modern software development. It acts as the digital gatekeeper, ensuring that only the right users have access to the right resources. From safeguarding personal data to enforcing business logic, a secure authentication process is essential for maintaining user trust and system integrity.
 
 However, despite its critical role, authentication is often seen as a cumbersome and intimidating part of the development process. Many developers find themselves wrestling with complex protocols, managing secrets, and navigating a labyrinth of security best practices just to get their applications off the ground. This can lead to a fragmented, error-prone approach that drains valuable development time and leaves critical gaps in security.
@@ -35,8 +38,6 @@ mkcert -install
 # Generate a self-signed certificate for localhost
 mkcert -client -pkcs12 localhost
 # This will create a file named localhost-client.p12 in the current directory.
-# Assuming we are in the root of the repository, you can move it to the code/scenarios/PoPmTLS folder:
-mv localhost-client.p12 code/scenarios/PoPmTLS/
 # Certificates last for 2 years and 3 months by default...
 ```
 
@@ -49,15 +50,15 @@ While these samples provide a straightforward introduction to authentication, a 
 
 Below, you'll find a curated list of resources to help you expand your understanding and take the next steps in mastering authentication:
 
-TBD
-- API Resources
-- API Scopes 
-- Roles?
-- Refresh tokens
-- Token delegation
-- Reference tokens
-- What should you take into account to choose an IdP
-- Security practices - https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics
-- Best practices checklist
-  - small tokens
-  - claims contains no personal data
+- Base documentation from Duende IdentityServer ([Duende IdentityServer Docs](https://docs.duendesoftware.com))
+- API Resources ([Duende IdentityServer Docs: API Resources](https://docs.duendesoftware.com/identityserver/fundamentals/resources/#api-resources))
+- API Scopes ([Duende IdentityServer Docs: API Scopes](https://docs.duendesoftware.com/identityserver/fundamentals/resources/#api-resources))
+- Roles ([Microsoft Docs: Role-based authorization in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/roles))
+- Refresh tokens ([OAuth 2.0 Refresh Token](https://datatracker.ietf.org/doc/html/rfc6749#section-6))
+- Token delegation ([OAuth 2.0 Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693))
+- Reference tokens ([Duende IdentityServer Docs: Reference Tokens](https://docs.duendesoftware.com/identityserver/tokens/reference))
+- Choosing an IdP ([How to Choose an Identity Provider](https://securityblog.omegapoint.se/en/how-to-choose-an-idp))
+- Security practices ([OAuth 2.0 Security Best Current Practice](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics))
+- Best practices checklist ([OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html))
+  - Use small tokens
+  - Ensure claims contain no personal data
