@@ -38,6 +38,11 @@ var summaries = new[]
 app.MapGet("/weatherforecast", [Authorize] (HttpContext context) =>
 {
     Console.WriteLine("Call to weather forecast endpoint with token {0}", context.Request.Headers.Authorization.ToString());
+    var authHeader = context.Request.Headers.Authorization.ToString();
+    var accessToken = authHeader[7..];
+    var accessTokenUrl = $"https://jwt.ms/#access_token={accessToken}";
+    app.Logger.LogInformation("View the decoded access_token! {accessTokenUrl}", accessTokenUrl);
+
     var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
