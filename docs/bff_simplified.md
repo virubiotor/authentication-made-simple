@@ -22,5 +22,5 @@ sequenceDiagram
     loop Extraer token
         BFF->>BFF: Recuperar token de cookie
     end
-    BFF->>API: Llamada a API con token
+    BFF->>API: Llamada a API /pedidos con token
 ```
