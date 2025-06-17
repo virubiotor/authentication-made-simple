@@ -48,13 +48,16 @@ public class DPoPProofValidator
         var result = new DPoPProofValidatonResult() { IsError = false };
 
         try
-        {
+        {          
             if (String.IsNullOrEmpty(context?.ProofToken))
             {
                 result.IsError = true;
                 result.ErrorDescription = "Missing DPoP proof value.";
                 return result;
             }
+
+            Logger.LogDebug($"https://jwt.ms#access_token={context.ProofToken}");
+            Logger.LogDebug($"https://jwt.ms#access_token={context.AccessToken}");
 
             await ValidateHeaderAsync(context, result);
             if (result.IsError)
@@ -241,6 +244,7 @@ public class DPoPProofValidator
         {
             result.IsError = true;
             result.ErrorDescription = "Invalid 'jti' value.";
+            Logger.LogWarning(result.ErrorDescription);
             return;
         }
 
@@ -293,7 +297,7 @@ public class DPoPProofValidator
         await ValidateReplayAsync(context, result);
         if (result.IsError)
         {
-            Logger.LogDebug("Detected replay of DPoP token");
+            Logger.LogWarning("Detected replay of DPoP token");
             return;
         }
     }
@@ -371,6 +375,7 @@ public class DPoPProofValidator
         {
             result.IsError = true;
             result.ErrorDescription = "Invalid 'iat' value.";
+            Logger.LogWarning(result.ErrorDescription);
             return Task.CompletedTask;
         }
 
