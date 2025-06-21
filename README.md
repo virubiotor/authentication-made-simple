@@ -49,16 +49,23 @@ While these samples provide a straightforward introduction to authentication, a 
 - Other authentication flows, such as token delegation
 
 Below, you'll find a curated list of resources to help you expand your understanding and take the next steps in mastering authentication:
-
-- Base documentation from Duende IdentityServer ([Duende IdentityServer Docs](https://docs.duendesoftware.com))
-- API Resources ([Duende IdentityServer Docs: API Resources](https://docs.duendesoftware.com/identityserver/fundamentals/resources/#api-resources))
-- API Scopes ([Duende IdentityServer Docs: API Scopes](https://docs.duendesoftware.com/identityserver/fundamentals/resources/#api-resources))
-- Roles ([Microsoft Docs: Role-based authorization in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/roles))
-- Refresh tokens ([OAuth 2.0 Refresh Token](https://datatracker.ietf.org/doc/html/rfc6749#section-6))
-- Token delegation ([OAuth 2.0 Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693))
-- Reference tokens ([Duende IdentityServer Docs: Reference Tokens](https://docs.duendesoftware.com/identityserver/tokens/reference))
+- Understanding fundamentals (regardless of IdPs) - base documentation from Duende IdentityServer ([Duende IdentityServer Docs](https://docs.duendesoftware.com))
+  - Clients ([Duende IdentityServer Docs: Clients](https://docs.duendesoftware.com/identityserver/reference/models/client))
+  - API Resources ([Duende IdentityServer Docs: API Resources](https://docs.duendesoftware.com/identityserver/fundamentals/resources/#api-resources))
+  - API Scopes ([Duende IdentityServer Docs: API Scopes](https://docs.duendesoftware.com/identityserver/fundamentals/resources/#api-resources))
+  - Claims ([Duende IdentityServer Docs: Claims](https://docs.duendesoftware.com/identityserver/fundamentals/claims/))
+- Awesome playground for a deeper understanding of OAuh flows ([OAuth2 Playground](https://www.oauth.com/playground/))
+  - Implicit flow is not recommended anymore, Auth code + PKCE should be used instead
+  - Refresh tokens ([OAuth 2.0 Refresh Token](https://datatracker.ietf.org/doc/html/rfc6749#section-6))
+  - Token delegation ([OAuth 2.0 Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693))
+  - Reference tokens ([Duende IdentityServer Docs: Reference Tokens](https://docs.duendesoftware.com/identityserver/tokens/reference))
 - Choosing an IdP ([How to Choose an Identity Provider](https://securityblog.omegapoint.se/en/how-to-choose-an-idp))
-- Security practices ([OAuth 2.0 Security Best Current Practice](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics))
-- Best practices checklist ([OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html))
-  - Use small tokens
-  - Ensure claims contain no personal data
+- Dominick Baier POV on authorization + roles ([Identity vs permissions](https://leastprivilege.com/2016/12/16/identity-vs-permissions/))
+- Roles ([Microsoft Docs: Role-based authorization in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/roles))
+- Best practices:
+  - Improving authentication by using "form post" ([OIDC form post response](https://openid.net/specs/oauth-v2-form-post-response-mode-1_0.html))
+  - Security practices ([OAuth 2.0 Security Best Current Practice](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics))
+  - Best practices checklist ([OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html))
+    - Use small tokens
+    - Ensure claims contain no personal data
+  - Same Site cookies ([Least privilege blog](https://leastprivilege.com/2019/01/18/an-alternative-way-to-secure-spas-with-asp-net-core-openid-connect-oauth-2-0-and-proxykit/))
